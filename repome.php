@@ -39,7 +39,7 @@ function apime_handler( $wp ) {
                     <title><?php the_title(); ?></title>
                     <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ) ); ?>
                     <image src="<?php echo $image[0] ?>" />
-                    <abstract><![CDATA[<?php the_excerpt() ?>]]></abstract>
+                    <abstract><![CDATA[<?php echo html_entity_decode(get_the_excerpt(), ENT_QUOTES, 'UTF-8') ?>]]></abstract>
                     <body><![CDATA[<?php the_content() ?>]]></body>
                 </post>
         <?php
