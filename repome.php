@@ -30,7 +30,7 @@ function apime_handler( $wp ) {
         $query = new WP_Query();
         $query->query(array('posts_per_page' => -1));
 
-        ?>
+        echo ('<?xml version="1.0" encoding="UTF-8" ?>');?>
     <posts>
         <?php
         if( $query->have_posts() ) {
@@ -41,6 +41,14 @@ function apime_handler( $wp ) {
                     <image src="<?php echo $image[0] ?>" />
                     <abstract><![CDATA[<?php echo html_entity_decode(get_the_excerpt(), ENT_QUOTES, 'UTF-8') ?>]]></abstract>
                     <body><![CDATA[<?php the_content() ?>]]></body>
+                    <?php
+                    $catString = "";
+                    $categories = get_the_category();
+                    foreach($categories as $category)
+                    {
+						$catString .= $category->name . " ";
+                    } ?>
+                    <categories value="<?php echo $catString; ?>"></categories>
                 </post>
         <?php
             endwhile;
