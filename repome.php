@@ -42,7 +42,7 @@ function apime_handler( $wp ) {
         <?php
         if( $query->have_posts() ) {
             while ($query->have_posts()) : $query->the_post(); ?>
-                <post url="<?php the_permalink(); ?>" modified="<?php the_modified_date('Y-m-d') ?> <?php the_modified_time('H:i:s') ?>" published="<?php the_date('Y-m-d') ?> <?php the_time('H:i:s') ?>">
+                <post id="<?php echo get_the_ID(); ?>" url="<?php the_permalink(); ?>" modified="<?php the_modified_date('Y-m-d') ?> <?php the_modified_time('H:i:s') ?>" published="<?php the_time('Y-m-d') ?> <?php the_time('H:i:s') ?>">
                     <title><?php the_title(); ?></title>
                     <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ) ); ?>
                     <image src="<?php echo $image[0] ?>" />
