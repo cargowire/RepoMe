@@ -24,11 +24,18 @@ $dateto = null;
 function apime_handler( $wp ) {
     if (startsWith($_SERVER["REQUEST_URI"], "/repome.php")) {
         add_filter( 'posts_where', 'apime_filter_where_between' );
-        global $datefrom, $dateto;
+        global $datefrom, $dateto, $posttype;
         $datefrom = ($_GET['datefrom']);
         $dateto = ($_GET['dateto']);
+        $posttype = ($_GET['posttype']);
         $query = new WP_Query();
-        $query->query(array('posts_per_page' => -1));
+        $queryParams = array('posts_per_page' => -1);
+
+		if(isset($posttype) && trim($posttype)!=='') {
+			$queryParams['post_type'] = esc_sql($posttype);
+        }
+
+		$query->query($queryParams);
 
         echo ('<?xml version="1.0" encoding="UTF-8" ?>');?>
     <posts>
