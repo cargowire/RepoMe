@@ -28,6 +28,7 @@ function apime_handler( $wp ) {
         $datefrom = ($_GET['datefrom']);
         $dateto = ($_GET['dateto']);
         $posttype = ($_GET['posttype']);
+        $customfields = ($_GET['customfields']);
         $query = new WP_Query();
         $queryParams = array('posts_per_page' => -1);
 
@@ -54,7 +55,27 @@ function apime_handler( $wp ) {
                     foreach($categories as $category)
                     {
 						$catString .= $category->name . " ";
-                    } ?>
+                    }
+                    if(is_array($customfields)){
+						echo "<fields>";
+						foreach($customfields as $customfield)
+						{
+							$metaData = get_post_meta(get_the_ID(), $customfield, true);
+							if($metaData != ''){
+								switch($customfield){
+									case "enclosure":
+										$powerpressvalues = explode("\n", $metaData);
+										$metaValue = $powerpressvalues[0];
+										break;
+									default:
+										$metaValue = $metaData;
+										break;
+								}
+								echo "<" . $customfield . ">" . $metaValue . "</" . $customfield . ">";
+							}
+						}
+						echo "</fields>";
+                    }?>
                     <categories value="<?php echo $catString; ?>"></categories>
                 </post>
         <?php
