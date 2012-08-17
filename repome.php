@@ -17,6 +17,10 @@ function apime_rewrite_rules( $wp_rewrite ) {
     return $wp_rewrite->rules;
 }
 
+function apime_post_deleted($pid){
+	file_put_contents('deleted.txt', $pid . PHP_EOL, FILE_APPEND);
+}
+
 $datefrom = null;
 $dateto = null;
 
@@ -108,5 +112,6 @@ function startsWith($haystack, $needle)
     return (substr($haystack, 0, $length) === $needle);
 }
 
+add_action('delete_post', 'apime_post_deleted', 10)
 add_filter( 'generate_rewrite_rules','apime_rewrite_rules' );
 add_action( 'parse_request', 'apime_handler');
