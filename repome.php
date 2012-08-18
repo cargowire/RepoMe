@@ -17,8 +17,9 @@ function apime_rewrite_rules( $wp_rewrite ) {
     return $wp_rewrite->rules;
 }
 
+// On delete permenantly
 function apime_post_deleted($pid){
-	file_put_contents('deleted.txt', $pid . PHP_EOL, FILE_APPEND);
+	file_put_contents(dirname(__FILE__).'/deleted.txt', $pid . PHP_EOL, FILE_APPEND);
 }
 
 $datefrom = null;
@@ -79,16 +80,31 @@ function apime_handler( $wp ) {
 							}
 						}
 						echo "</fields>";
-                    }?>
-                    <categories value="<?php echo $catString; ?>"></categories>
-                </post>
-        <?php
+                    }
+                    echo '<categories value="' . $catString . '"></categories>';
+                echo '</post>';
             endwhile;
         }
+        
+        // Deleted Posts
+        $deletePosts = file(dirname(__FILE__).'/deleted.txt');
+		for($i=0;$i<count($deletePosts);$i++){
+			echo '<post id="' . trim($deletePosts[$i]) . '" status="deleted"></post>';
+		}
+		
+		remove_filter( 'posts_where', 'apime_filter_where_between' );
+		
+		// pending, draft, auto-draft, future, private, inherit, trash
+		$query->query(array( 'status' => array( 'pending', 'draft', 'auto-draft', 'future', 'private', 'inherit', 'trash' ) ) );
+		if( $query->have_posts() ) {
+            while ($query->have_posts()) {
+				$query->the_post();
+                echo '<post id="' . get_the_ID() . '" status="unpublished"></post>';
+			}
+		}
         ?>
     </posts>
         <?php
-        remove_filter( 'posts_where', 'apime_filter_where_between' );
         exit();
     }
 
@@ -112,6 +128,6 @@ function startsWith($haystack, $needle)
     return (substr($haystack, 0, $length) === $needle);
 }
 
-add_action('delete_post', 'apime_post_deleted', 10)
+add_action('delete_post', 'apime_post_deleted', 10);
 add_filter( 'generate_rewrite_rules','apime_rewrite_rules' );
 add_action( 'parse_request', 'apime_handler');
