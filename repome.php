@@ -97,7 +97,7 @@ class repome {
 				remove_filter( 'posts_where', array('repome', 'filter_where_between_modified_dates'));
 				
 				// pending, draft, auto-draft, future, private, inherit, trash
-				$query->query(array( 'status' => array( 'pending', 'draft', 'auto-draft', 'future', 'private', 'inherit', 'trash' ) ) );
+				$query->query(array( 'status' => array( 'pending', 'draft', 'future', 'private', 'trash' ) ) );
 				if( $query->have_posts() ) {
 					while ($query->have_posts()) {
 						$query->the_post();
