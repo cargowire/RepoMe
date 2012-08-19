@@ -1,6 +1,7 @@
 # RepoMe
 
-Access posts based on modified date, for use with clients who cache data and need to request specific updates.
+Access posts based on modified date, for use with clients who cache data and need to request specific updates.  Unpublished/deleted posts are included
+in responses because a client may have already pulled them and needs to unpublish/remove them.
 
 ## Notes
 
@@ -30,6 +31,6 @@ Access posts based on modified date, for use with clients who cache data and nee
 	</post>
 	<post id="1" status="deleted"></post>
 	<post id="2" status="unpublished"></post>
-	<post id="3" status="unpublished">
+	<post id="3" status="unpublished"></post>
 </posts>
 ```
