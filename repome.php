@@ -39,7 +39,15 @@ class repome {
 			$queryParams = array('posts_per_page' => -1);
 
 			if(isset(self::$posttype) && trim(self::$posttype)!=='') {
-				$queryParams['post_type'] = esc_sql(self::$posttype);
+				$potentialExtraFile = dirname(__FILE__).'/'.self::$posttype.'.repo.inc';
+				if(repome::startsWith(realpath($potentialExtraFile), dirname(__FILE__))) {
+					if(file_exists($potentialExtraFile)){
+						include_once($potentialExtraFile);
+						exit();
+					}else{
+						$queryParams['post_type'] = esc_sql(self::$posttype);
+					}
+				}
 			}
 
 			$query->query($queryParams);
