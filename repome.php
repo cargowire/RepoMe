@@ -44,10 +44,9 @@ class repome {
 					if(file_exists($potentialExtraFile)){
 						include_once($potentialExtraFile);
 						exit();
-					}else{
-						$queryParams['post_type'] = esc_sql(self::$posttype);
 					}
 				}
+				$queryParams['post_type'] = esc_sql(self::$posttype);
 			}
 
 			$query->query($queryParams);
