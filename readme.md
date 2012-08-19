@@ -10,6 +10,10 @@ in responses because a client may have already pulled them and needs to unpublis
 * posttype - The type of post to return e.g. post, page or a custom post type
 * customfields[] - The custom fields to include in the response
 
+## Custom (potentially non-wordpress) responses
+
+If you include a '[posttype].repo.inc' file in the plugin folder it will be called when a request for that posttype arrives.  This allows your endpoint to serve 'standard' wordpress database data as well as maybe something custom coming from files or elsewhere.
+
 ## Example response
 
 * /repome?datefrom=2012-08-09&posttype=post&customfields[]=myfield&customfields[]=myfield2
