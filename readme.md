@@ -12,7 +12,7 @@ in responses because a client may have already pulled them and needs to unpublis
 
 ## Example response
 
-* /repome?datefrom=2012-08-19&posttype=post&customfields[]=myfield&customfields[]=myfield2
+* /repome?datefrom=2012-08-09&posttype=post&customfields[]=myfield&customfields[]=myfield2
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
