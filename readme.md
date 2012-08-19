@@ -13,6 +13,7 @@ Access posts based on modified date, for use with clients who cache data and nee
 
 * /repome?datefrom=2012-08-19&posttype=post&customfields[]=myfield&customfields[]=myfield2
 
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <posts>
 	<post id="4" url="http://www.mywordpress.com/myarticle" modified="2012-08-09 13:41:45" published="2012-08-13 12:00:47">
@@ -31,3 +32,4 @@ Access posts based on modified date, for use with clients who cache data and nee
 	<post id="2" status="unpublished"></post>
 	<post id="3" status="unpublished">
 </posts>
+```
